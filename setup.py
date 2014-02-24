@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-try:
-    from ez_setup import use_setuptools
-    use_setuptools()
-except:
-    pass
 
 from setuptools import setup, find_packages
 
@@ -12,7 +7,7 @@ setup(
       version = '0.1.0',
       description = 'LDP Client for Python',
       long_description = 'LDP Client for Python. Very prototypical, initially written to cross-testing Apache Marmotta reference implementation.',
-      license = 'Apache Software License',
+      license = 'Apache Software License 2.0',
       author = "Sergio Fernandez",
       author_email = "wikier@apache.org",
       url = 'http://github.com/wikier/ldpy',
