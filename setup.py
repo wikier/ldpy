@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
       name = 'ldpy',
@@ -14,8 +14,8 @@ setup(
       download_url = 'http://github.com/wikier/ldpy/releases',
       platforms = ['any'],
       packages = ['ldpy'],
-      requires = ['rdflib']
-      install_requires = ['rdflib >= 4.1.0']
+      requires = ['rdflib'],
+      install_requires = ['rdflib >= 4.1.0'],
       classifiers =  [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
