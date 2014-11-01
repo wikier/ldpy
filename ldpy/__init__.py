@@ -23,3 +23,5 @@ __docformat__ = "restructuredtext en"
 import logging
 _LOGGER = logging.getLogger("ldpy")
 _LOGGER.info("LDPy Version: %s" % __version__)
+
+from client import Client
