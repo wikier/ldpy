@@ -34,7 +34,7 @@ class Client:
 
     def create(self, container, payload, format=None, tentativeName=None):
         if (not container.startswith(self.server)):
-            raise ValueError("requested resource %s does not belong to this client instance", container)
+            raise ValueError("base container %s does not belong to this client instance", container)
 
         # TODO: do this in a more pythonic way
         g = None
@@ -66,11 +66,38 @@ class Client:
         else:
             raise RuntimeError("creation of resource in container %s failed, server returned %d status code", (container, request.status_code))
         
+    def read(self, resource, format=None):
+        if (not resource.startswith(self.server)):
+            raise ValueError("requested resource %s does not belong to this client instance", resource)
+
+        if (not format in _rdflibFormatsMappings):
+            format = "text/turtle"
+
+        request  = requests.get(resource, headers={"Accept" : format })
+
+        if (request.status_code == 200):
+            return request.text
+        else:
+            raise RuntimeError("reading resource %s failed, server returned %d status code", (resource, request.status_code))
+
         
 
 if __name__ == "__main__":
     ldp = Client("http://localhost:8080/ldp")
-    print ldp.create("http://localhost:8080/ldp", open("data/blog.ttl"), "text/turtle", "blog")
+
+    blog = ldp.create("http://localhost:8080/ldp", open("data/blog.ttl"), "text/turtle", "blog")
+    print "LDP Blog created at <%s>: ", blog
+    print
+    print ldp.read(blog)
+    print
+
+    post = ldp.create(blog, open("data/post.ttl"), "text/turtle", "post")
+    print "LDP Post created at %s: ", post
+    print
+    print ldp.read(post)
+    print
+
+    print ldp.read("http://localhost:8080/ldp/foo")
 
 
 
