@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from rdflib.graph import Graph
 import requests
+from rdflib.graph import Graph
 
 _rdflibFormatsMappings = {
     "text/turtle"           : "turtle",
@@ -23,10 +23,18 @@ _rdflibFormatsMappings = {
     "application/trix"      : "trix"
 }
 
+def _getUserAgent():
+    try:
+        import ldpy
+        return ldpy.__agent__
+    except ImportError:
+        return "ldpy"
+
 class Client:
 
-    def __init__(self, server):
+    def __init__(self, server, userAgent=_getUserAgent()):
         self.server = server
+        self.userAgent = userAgent
         try:
             requests.head(self.server)
         except requests.exceptions.ConnectionError, e:
@@ -56,7 +64,7 @@ class Client:
             else:
                 raise ValueError("unsupported type %s as payload", type(payload))
 
-        headers = {"Content-Type" : "text/turtle" }
+        headers = {"Content-Type" : "text/turtle", "User-Agent" : self.userAgent }
         if (len(tentativeName) > 0 ):
             headers["Slug"] = tentativeName
         request  = requests.post(container, data=g.serialize(format='turtle'), headers=headers)
@@ -73,31 +81,10 @@ class Client:
         if (not format in _rdflibFormatsMappings):
             format = "text/turtle"
 
-        request  = requests.get(resource, headers={"Accept" : format })
+        request  = requests.get(resource, headers={"Accept" : format, "User-Agent" : self.userAgent })
 
         if (request.status_code == 200):
             return request.text
         else:
             raise RuntimeError("reading resource %s failed, server returned %d status code", (resource, request.status_code))
-
-        
-
-if __name__ == "__main__":
-    ldp = Client("http://localhost:8080/ldp")
-
-    blog = ldp.create("http://localhost:8080/ldp", open("data/blog.ttl"), "text/turtle", "blog")
-    print "LDP Blog created at <%s>: ", blog
-    print
-    print ldp.read(blog)
-    print
-
-    post = ldp.create(blog, open("data/post.ttl"), "text/turtle", "post")
-    print "LDP Post created at %s: ", post
-    print
-    print ldp.read(post)
-    print
-
-    print ldp.read("http://localhost:8080/ldp/foo")
-
-
 

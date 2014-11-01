@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.1"
-__date__ = "2014/02/24"
-__license__ = "Apache Software License 2.0"
-__url__ = "http://github.com/wikier/ldpy"
-__contact__ = "wikier@apache.org"
-__agent__ = "ldpy %s (http://github.com/wikier/ldpy)" % __version__
+__version__   = "0.1.0"
+__date__      = "2014/11/01"
+__license__   = "Apache Software License 2.0"
+__url__       = "http://github.com/wikier/ldpy"
+__contact__   = "sergio@wikier.org"
+__agent__     = "ldpy %s (http://github.com/wikier/ldpy)" % __version__
 __docformat__ = "restructuredtext en"
 
 import logging
