@@ -1,0 +1,19 @@
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<> a sioc:Post ;
+    dct:title "ISWC 2014 Tutorial - Apache Marmotta" ;
+    dct:abstract "How to use the Linked Data Platform (LDP) in Apache Marmotta" ;
+    foaf:depiction <ISWC2014-Tutorial/iswc2014.png> ;
+    sioc:content """This ISWC2014 tutorial introduces into Apache Marmotta, an open
+and extensible platform for Linked Data, which provides SPARQL 1.1 and LDP 1.0 support,
+with many modules and extensions, hosted by the Apache Software Foundation. The tutorial
+will show in a hands-on workshop how to setup Apache Marmotta, how to use it as a Linked
+Data Platform server for publishing and maintaining datasets, and how to build and
+extend Linked Data applications based on this platform. A specific focus will be on
+Apache Marmotta’s semantic media management capabilities with an introduction into the
+SPARQL-MM multimedia querying extension."""@en .
+

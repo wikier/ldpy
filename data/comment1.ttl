@@ -1,0 +1,8 @@
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+<> a sioc:Comment ;
+    dct:title "This is awesome!" ;
+    sioc:content "LDP in Marmotta is awesome - can't wait to try it myself!" .
