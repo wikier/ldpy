@@ -16,7 +16,7 @@ from setuptools import setup
 
 setup(
       name = 'ldpy',
-      version = '0.1.0',
+      version = '0.2.0',
       description = 'LDP Client for Python',
       long_description = 'LDP Client for Python. Very prototypical, initially written to cross-testing Apache Marmotta reference implementation.',
       license = 'Apache Software License 2.0',
