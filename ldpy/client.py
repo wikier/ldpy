@@ -40,7 +40,7 @@ class Client:
         except requests.exceptions.ConnectionError, e:
             raise ValueError("server %s does not look to be alive: %s" % (server, e.message))
 
-    def create(self, container, payload, format=None, tentativeName=None):
+    def create(self, container, payload=None, format=None, tentativeName=None):
         if (not container.startswith(self.server)):
             raise ValueError("base container %s does not belong to this client instance", container)
 
