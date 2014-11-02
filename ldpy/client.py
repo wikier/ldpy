@@ -83,8 +83,12 @@ class Client:
 
         request  = requests.get(resource, headers={"Accept" : format, "User-Agent" : self.userAgent })
 
-        if (request.status_code == 200):
-            return request.text
-        else:
+        if (request.status_code != 200 ):
             raise RuntimeError("reading resource %s failed, server returned %d status code", (resource, request.status_code))
+        elif (request.headers["Content-Type"] in _rdflibFormatsMappings):
+            g = Graph()
+            g.parse(data=request.text, format=_rdflibFormatsMappings[request.headers["Content-Type"]])           
+            return g 
+        else:
+            return request.text
 
