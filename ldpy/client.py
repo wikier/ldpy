@@ -47,29 +47,21 @@ class Client:
             raise ValueError("base container %s does not belong to this client instance", container)
 
         # TODO: do this in a more pythonic way
-        g = None
         if (payload):
             if (type(payload) == str):
-                if (not format in _rdflibFormatsMappings):
-                    raise ValueError("unsupported format %s to send string payload" % format)
-                else:
-                    g = Graph()
-                    g.parse(data=payload, format=_rdflibFormatsMappings[format])
+                pass
             elif (type(payload) == file):
-                if (not format in _rdflibFormatsMappings):
-                    raise ValueError("unsupported format %s to send string payload" % format)
-                else:
-                    g = Graph()
-                    g.parse(data=payload.read(), format=_rdflibFormatsMappings[format])
+                payload = payload.read()
             elif (type(payload) == Graph):
-                g = payload
+                format = _rdflibFormatsMappings[format] if format in _rdflibFormatsMappings else "turtle"
+                payload = payload.serialize(format=format)
             else:
                 raise ValueError("unsupported type %s as payload" % type(payload))
 
         headers = {"Content-Type" : "text/turtle", "User-Agent" : self.userAgent }
         if (tentativeName is not None and len(tentativeName) > 0 ):
             headers["Slug"] = tentativeName
-        request  = requests.post(container, data=g.serialize(format='turtle'), headers=headers)
+        request  = requests.post(container, data=payload, headers=headers)
 
         if (request.status_code == 201):
             return request.headers["Location"]
