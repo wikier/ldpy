@@ -65,7 +65,7 @@ class Client:
                 raise ValueError("unsupported type %s as payload", type(payload))
 
         headers = {"Content-Type" : "text/turtle", "User-Agent" : self.userAgent }
-        if (len(tentativeName) > 0 ):
+        if (tentativeName is not None and len(tentativeName) > 0 ):
             headers["Slug"] = tentativeName
         request  = requests.post(container, data=g.serialize(format='turtle'), headers=headers)
 
