@@ -49,20 +49,20 @@ class Client:
         if (payload):
             if (type(payload) == str):
                 if (not format in _rdflibFormatsMappings):
-                    raise ValueError("unsupported format %s to send string payload", format)
+                    raise ValueError("unsupported format %s to send string payload" % format)
                 else:
                     g = Graph()
                     g.parse(data=payload, format=_rdflibFormatsMappings[format])
             elif (type(payload) == file):
                 if (not format in _rdflibFormatsMappings):
-                    raise ValueError("unsupported format %s to send string payload", format)
+                    raise ValueError("unsupported format %s to send string payload" % format)
                 else:
                     g = Graph()
                     g.parse(data=payload.read(), format=_rdflibFormatsMappings[format])
             elif (type(payload) == Graph):
                 g = payload
             else:
-                raise ValueError("unsupported type %s as payload", type(payload))
+                raise ValueError("unsupported type %s as payload" % type(payload))
 
         headers = {"Content-Type" : "text/turtle", "User-Agent" : self.userAgent }
         if (tentativeName is not None and len(tentativeName) > 0 ):
@@ -72,11 +72,11 @@ class Client:
         if (request.status_code == 201):
             return request.headers["Location"]
         else:
-            raise RuntimeError("creation of resource in container %s failed, server returned %d status code", (container, request.status_code))
+            raise RuntimeError("creation of resource in container %s failed, server returned %d status code" % (container, request.status_code))
         
     def read(self, resource, format=None):
         if (not resource.startswith(self.server)):
-            raise ValueError("requested resource %s does not belong to this client instance", resource)
+            raise ValueError("requested resource %s does not belong to this client instance" % resource)
 
         if (not format in _rdflibFormatsMappings):
             format = "text/turtle"
@@ -84,7 +84,7 @@ class Client:
         request  = requests.get(resource, headers={"Accept" : format, "User-Agent" : self.userAgent })
 
         if (request.status_code != 200 ):
-            raise RuntimeError("reading resource %s failed, server returned %d status code", (resource, request.status_code))
+            raise RuntimeError("reading resource %s failed, server returned %d status code" % (resource, request.status_code))
         elif (request.headers["Content-Type"] in _rdflibFormatsMappings):
             g = Graph()
             g.parse(data=request.text, format=_rdflibFormatsMappings[request.headers["Content-Type"]])           
