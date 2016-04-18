@@ -1,7 +1,7 @@
 LDPy
 ====
 
-[LDP](https://dvcs.w3.org/hg/ldpwg/raw-file/default/ldp.html) Client for Python. 
+[LDP 1.0](https://www.w3.org/TR/ldp/) Client for Python. 
 
 Very prototypical client, initially written for cross-testing [Apache Marmotta reference implementation](http://wiki.apache.org/marmotta/LDPImplementationReport).
 
